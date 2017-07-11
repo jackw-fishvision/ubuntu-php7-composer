@@ -29,11 +29,13 @@ RUN apt-get -y install wget \
     language-pack-en-base \
     apt-transport-https
 
-# Add google cloud sdk
-RUN echo "deb https://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-RUN apt-get update
-RUN apt-get -y install google-cloud-sdk
+# Install google cloud sdk
+RUN curl -fsSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-155.0.0-linux-x86_64.tar.gz -o /google-cloud-sdk.tar.gz
+RUN tar -xf /google-cloud-sdk.tar.gz -C /
+RUN /google-cloud-sdk/install.sh --usage-reporting false --additional-components kubectl --path-update true
+RUN rm /google-cloud-sdk.tar.gz
+RUN ln -s /google-cloud-sdk/bin/gcloud /usr/bin/
+RUN ln -s /google-cloud-sdk/bin/kubectl /usr/bin/
 
 # Add repos
 RUN add-apt-repository ppa:fkrull/deadsnakes
