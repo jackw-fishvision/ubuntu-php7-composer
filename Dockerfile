@@ -26,8 +26,13 @@ RUN apt-get -y install wget \
     libc6-dev \
     libbz2-dev \
     software-properties-common \
-    language-pack-en-base \
-    ansible
+    language-pack-en-base
+
+# Add google cloud sdk
+RUN echo "deb https://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+RUN apt-get update
+RUN apt-get -y install google-cloud-sdk
 
 # Add repos
 RUN add-apt-repository ppa:fkrull/deadsnakes
