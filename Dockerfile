@@ -28,7 +28,12 @@ RUN apt-get -y install wget \
     software-properties-common \
     language-pack-en-base \
     apt-transport-https \
-    python
+    pkg-config
+
+# Install python
+RUN apt-get install -y python2.7
+RUN apt-get install -y python-pip
+RUN pip install --upgrade pip
 
 # Install google cloud sdk
 RUN curl -fsSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-155.0.0-linux-x86_64.tar.gz -o /google-cloud-sdk.tar.gz
@@ -41,11 +46,6 @@ RUN ln -s /google-cloud-sdk/bin/gcloud /usr/bin/
 RUN add-apt-repository ppa:fkrull/deadsnakes
 RUN LC_ALL=en_US.UTF-8 apt-add-repository ppa:ondrej/php
 RUN apt-get update
-
-# Install python
-RUN apt-get install -y python2.7
-RUN apt-get install -y python-pip
-RUN pip install --upgrade pip
 
 # Install PHP
 RUN apt-get -y --allow-unauthenticated install \
