@@ -73,6 +73,7 @@ RUN apt-get -y --allow-unauthenticated install \
     php7.1-mcrypt \
     php7.1-mbstring \
     php7.1-zip \
+    php-imagick \
     php-xdebug
 
 # Clean apt
